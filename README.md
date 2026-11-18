@@ -17,20 +17,33 @@ automatically runs the test suite.
 
 ## Run locally
 
+A virtual environment is **optional** — if `pytest` is already installed in
+your Python, you can skip straight to running the app/tests.
+
+**Easiest on Windows:** double-click `run.bat` in this folder. It starts the
+interactive calculator using your normal Python (no activation needed). You can
+also pass arguments: `run.bat add 2 3`.
+
+**Using a terminal** (from this folder):
+
 ```bash
-# 1. Create and activate a virtual environment (optional but recommended)
+# 1. Install dependencies once (skip if pytest is already installed)
+python -m pip install -r requirements.txt
+
+# 2. Run the tests
+pytest
+
+# 3. Run the calculator (see "Using the calculator" below)
+python -m calculator.calculator
+```
+
+If you do want an isolated environment, these optional steps work too:
+
+```bash
 python -m venv .venv
 # Windows: .venv\Scripts\activate
 # macOS/Linux: source .venv/bin/activate
-
-# 2. Install dependencies
 python -m pip install -r requirements.txt
-
-# 3. Run the tests
-pytest
-
-# 4. Run the calculator (see "Using the calculator" below)
-python -m calculator.calculator
 ```
 
 ## Using the calculator
