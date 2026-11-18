@@ -31,7 +31,7 @@ also pass arguments: `run.bat add 2 3`.
 python -m pip install -r requirements.txt
 
 # 2. Run the tests
-pytest
+python -m pytest
 
 # 3. Run the calculator (see "Using the calculator" below)
 python -m calculator.calculator
@@ -125,7 +125,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip                       # cache downloaded packages
       - run: python -m pip install -r requirements.txt
-      - run: pytest -q                     # run the test suite
+      - run: python -m pytest -q           # run the test suite
 ```
 
 Key ideas:
