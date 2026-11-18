@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
-__all__ = ["add", "subtract", "multiply", "divide", "power"]
+__all__ = ["add", "subtract", "multiply", "divide", "power", "calculate"]
 
 
 def __getattr__(name: str) -> Any:

@@ -6,10 +6,11 @@ automatically runs the test suite.
 
 ## Project contents
 
-- `calculator/calculator.py` — a small calculator module (`add`, `subtract`,
-  `multiply`, `divide`, `power`).
+- `calculator/calculator.py` — a calculator module (`add`, `subtract`,
+  `multiply`, `divide`, `power`) with a dynamic CLI: command-line arguments
+  or an interactive prompt.
 - `tests/test_calculator.py` — pytest unit tests covering normal cases, edge
-  cases, and error handling (division by zero).
+  cases, error handling, the CLI, and interactive mode.
 - `.github/workflows/ci.yml` — the GitHub Actions workflow that runs the tests.
 - `requirements.txt` — Python dependencies (`pytest`).
 - `pytest.ini` — pytest configuration.
@@ -28,8 +29,61 @@ python -m pip install -r requirements.txt
 # 3. Run the tests
 pytest
 
-# 4. (Optional) run the demo app
+# 4. Run the calculator (see "Using the calculator" below)
 python -m calculator.calculator
+```
+
+## Using the calculator
+
+The calculator takes input dynamically — you don't hard-code anything.
+
+### Option A: Interactive mode (run with no arguments)
+
+```bash
+python -m calculator.calculator
+```
+
+It prompts you in a loop until you type `quit`:
+
+```
+Interactive calculator. Available operations: add, subtract, multiply, divide, power.
+Type 'quit' (or 'q' / 'exit') to stop.
+
+Operation [add, subtract, multiply, divide, power]: add
+First number:  2
+Second number: 3
+Result: 5
+
+Operation [add, subtract, multiply, divide, power]: quit
+Goodbye!
+```
+
+Invalid numbers and unknown operations are handled gracefully, so you can
+keep trying without the program crashing.
+
+### Option B: Command-line arguments
+
+```bash
+python -m calculator.calculator add 2 3        # Result: 5
+python -m calculator.calculator multiply 4 7   # Result: 28
+python -m calculator.calculator power 2 8      # Result: 256
+```
+
+Operation names are case-insensitive (`ADD`, `Add`, and `add` all work).
+Errors are reported clearly, e.g. dividing by zero:
+
+```
+python -m calculator.calculator divide 10 0
+# error: argument: Cannot divide by zero
+```
+
+### Option C: Import it in your own Python code
+
+```python
+from calculator import add, divide
+
+print(add(2, 3))      # 5
+print(divide(10, 2))  # 5.0
 ```
 
 ## CI pipeline configuration explained
@@ -75,6 +129,9 @@ Key ideas:
 5. **Result** — if any test fails in any matrix job, the overall CI check is
    red and the pull request is blocked from merging (if branch protection is
    enabled).
+
+The `tests` now also cover the dynamic CLI (argument parsing, error handling,
+and the interactive loop), so CI verifies both the math and the input flow.
 
 ## How to publish this project
 
